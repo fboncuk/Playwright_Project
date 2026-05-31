@@ -14,30 +14,29 @@ public class CreateAccountPage {
     private final Locator phone;
     private final Locator createAccountButton;
     private final Locator password1;
-    private final Locator viewBox1;
+    private final Locator showPasswordToggle;
     private final Locator password2;
-    private final Locator viewBox2;
+    private final Locator showReenterPasswordToggle;
     private final Locator setPhoneCheckBox;
 
     // Constructor tanımlanır
-    public CreateAccountPage (Page page) throws InterruptedException {
+    public CreateAccountPage (Page page) {
         this.page = page;
 
         // Locatorlar atanır
         this.firstName = page.getByLabel("First Name");
         this.lastName = page.getByLabel("Last Name");
-        this.email = page.locator("input#email");
+        this.email = page.locator("#email");
         this.password1 = page.locator("input#fld-p1");
-        this.viewBox1 = page.locator("button#show-hide-password-toggle");
+        this.showPasswordToggle = page.locator("button#show-hide-password-toggle");
         this.password2 = page.locator("input#reenterPassword");
-        this.viewBox2 = page.locator("button#show-hide-reenter-password-toggle");
-
-        this.phone = page.locator("input#phone");
-        this.setPhoneCheckBox = page.locator("input#is-recovery-phone");
+        this.showReenterPasswordToggle = page.locator("button#show-hide-reenter-password-toggle");
+        this.phone = page.locator("#phone");
+        this.setPhoneCheckBox = page.locator("#is-recovery-phone");
         this.createAccountButton = page.locator("button[type='submit']");
     }
 
-    // Her bir locator için fill/click metotları hazırlanır
+    // Her bir locator için fill/click/check metotları hazırlanır
     public void fillFirstName(String value) { firstName.fill(value); }
     public void fillLastName(String value) {
         lastName.fill(value);
@@ -45,19 +44,58 @@ public class CreateAccountPage {
     public void fillEmail(String value) {
         email.fill(value);
     }
-
-    public void fillpassword1(String value) { password1.fill(value); }
-    public void clickViewBox1() { viewBox1.click(); }
-    public void fillpassword2(String value) { password2.fill(value); }
-    public void clickViewBox2() { viewBox2.click(); }
-
+    public void fillPassword1(String value) { password1.fill(value); }
+    public void clickshowPasswordToggle() { showPasswordToggle.click(); }
+    public void fillPassword2(String value) { password2.fill(value); }
+    public void clickshowReenterPasswordToggle() { showReenterPasswordToggle.click(); }
     public void fillPhone(String value) {
         phone.fill(value);
     }
     public void setPhoneCheckBox() { setPhoneCheckBox.check(); }
-    public void clickCreateAccount() {
+
+    // Test amaçlı (ileride kaldırılacak veya değiştirilecek)
+    public void printCreateAccount() {
         System.out.println(createAccountButton.innerText()); }
 
+    // Hesap oluşturma kodu, geçek testte kullanılacak kod
+    // public void clickCreateAccount() {
+    //     createAccountButton.click();  // Gerçek kullanım
+    // }
+
+    // *************************************************************************
+    // LOCATOR ÖRNEKLERİ (Aynı kutuya isim girişi yapılması gerekiyor)
+    // 1. getByRole
+    // page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("First Name")).fill("Fatih");
+
+    // 2. getByLabel
+    //page.getByLabel("First Name").fill("Fatih"); //getByLabel 1. öncelikle tercih edilir
+
+    // 3. getByPlaceholder (bu formda placeholder boş ama örnek kullanım)
+    //page.getByPlaceholder("First Name").fill("Fatih");
+
+    // 4. getByText (label üzerinden dolaylı kullanım)
+    //page.getByText("First Name")
+    //.locator("..")
+    //.locator("input")
+    //.fill("Fatih");
+
+    // 5. getByAltText (input için genelde kullanılmaz, sadece görüntü için)
+    // Bu case'te uygun değil, ama örnek olsun diye:
+    //page.getByAltText("First Name");
+
+    // 6. getByTitle (bu formda yok, ama örnek)
+    //page.getByTitle("First Name").fill("Fatih");
+
+    // 7. getByTestId (HTML’de yok ama en stabil yöntem olurdu)
+    // Eğer dev şöyle ekleseydi:
+    // data-testid="first-name"
+    //page.getByTestId("first-name").fill("Fatih");
+
+    // 8. CSS selector (ID ile en net fallback)
+    //page.locator("#firstName").fill("Fatih");
+
+    // 9. XPath (en son çare)
+    //page.locator("//input[@id='firstName']").fill("Fatih");
 
 
 }
