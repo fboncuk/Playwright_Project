@@ -10,6 +10,14 @@ The framework follows Page Object Model (POM) principles and focuses on
         * clean test design.
 
 **********
+Project Goals
+* Eliminate Thread.sleep usage
+* Improve framework maintainability
+* Increase test stability
+* Enable scalable test execution
+* Support CI/CD integration
+
+**********
 Technology Stack
 * Java 17
 * Playwright
@@ -83,14 +91,6 @@ Reporting
 DevOps
 * GitHub Actions CI pipeline
 * Docker support
-
-**********
-Project Goals
-* Eliminate Thread.sleep usage
-* Improve framework maintainability
-* Increase test stability
-* Enable scalable test execution
-* Support CI/CD integration
 
 **********
 Sample Test Scenario
