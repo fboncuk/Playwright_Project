@@ -1,48 +1,57 @@
 package tests;
 
+import base.PlaywrightBaseTest;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import pages.CreateAccountPage;
+import utils.ConfigReader;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SignUp extends PlaywrightBaseTest {
 
+    private Faker faker = new Faker();
 
     @Test
-    public void signUpTest () throws InterruptedException {
+    public void signUpTest () {
 
         CreateAccountPage createAccountPage = new CreateAccountPage(page);
 
-        // Browser sayfasında işlem yapılır
-        page.navigate("https://www.bestbuy.com/?intl=nosplash");
+        // The process is carried out on the browser page.
+        page.navigate(ConfigReader.get("baseUrl"));
         page.locator("[class='flex justify-start font-400 text-3 leading-3 text-brand-tech-white']").click();
         page.locator("[data-testid='createAccountButton']").click();
-        // Thread.sleep(1000); // TODO: Gözlem için geçici, kaldırılacak
 
-        // CreateAccountPage sayfasındaki metotlar ile işlem yapılır
-        createAccountPage.fillFirstName("BenimAdim");
-        createAccountPage.fillLastName("BenimSoyadim");
-        createAccountPage.fillEmail("BenimEmail@adresim.com");
-        // Thread.sleep(1000); // TODO: Gözlem için geçici, kaldırılacak
+        // Random fake values are generated and entered
+        String anyFirstName = faker.name().firstName();
+        String anyLastName = faker.name().lastName();
+        String uniqueEmail = faker.internet().emailAddress();
+        String password = faker.internet()
+                .password(8,15,true,true,true);
+        String anyPhoneNumber = faker.phoneNumber().cellPhone();
 
-        createAccountPage.fillPassword1("Pa55w0rd.* 111");
+        // The process is carried out using the methods on the CreateAccountPage.
+        createAccountPage.fillFirstName(anyFirstName);
+        createAccountPage.fillLastName(anyLastName);
+        createAccountPage.fillEmail(uniqueEmail);
+
+        createAccountPage.fillPassword1(password);
         createAccountPage.clickshowPasswordToggle();
-        // Thread.sleep(1000); // TODO: Gözlem için geçici, kaldırılacak
 
-        createAccountPage.fillPassword2("Pa55w0rd.* 111");
+        createAccountPage.fillPassword2(password);
         createAccountPage.clickshowReenterPasswordToggle();
-        // Thread.sleep(1000); // TODO: Gözlem için geçici, kaldırılacak
 
         assertThat(page.locator("span.cdi-input-success-message").textContent())
                 .contains("Your passwords match");
 
-        createAccountPage.fillPhone("0613026899");
-        // Thread.sleep(1000); // TODO: Gözlem için geçici, kaldırılacak
+        createAccountPage.fillPhone(anyPhoneNumber);
 
         createAccountPage.setPhoneCheckBox();
-        // Thread.sleep(1000); // TODO: Gözlem için geçici, kaldırılacak
 
         System.out.println(page.locator("#is-recovery-phone").isChecked());
 
+        // Printing is only for test purposes
+        // In real tests "Create Account" button should be clicked.
         createAccountPage.printCreateAccount();
 
     }

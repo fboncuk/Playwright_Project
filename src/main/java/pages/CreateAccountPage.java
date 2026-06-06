@@ -7,7 +7,7 @@ public class CreateAccountPage {
 
     private final Page page;
 
-    // Locator isimleri tanımlanır
+    // Locator names are defined.
     private final Locator firstName;
     private final Locator lastName;
     private final Locator email;
@@ -19,11 +19,11 @@ public class CreateAccountPage {
     private final Locator showReenterPasswordToggle;
     private final Locator setPhoneCheckBox;
 
-    // Constructor tanımlanır
+    // The constructor is defined.
     public CreateAccountPage (Page page) {
         this.page = page;
 
-        // Locatorlar atanır
+        // Locators are assigned.
         this.firstName = page.getByLabel("First Name");
         this.lastName = page.getByLabel("Last Name");
         this.email = page.locator("#email");
@@ -36,7 +36,7 @@ public class CreateAccountPage {
         this.createAccountButton = page.locator("button[type='submit']");
     }
 
-    // Her bir locator için fill/click/check metotları hazırlanır
+    // Fill/click/check methods are prepared for each locator.
     public void fillFirstName(String value) { firstName.fill(value); }
     public void fillLastName(String value) {
         lastName.fill(value);
@@ -53,14 +53,17 @@ public class CreateAccountPage {
     }
     public void setPhoneCheckBox() { setPhoneCheckBox.check(); }
 
-    // Test amaçlı (ileride kaldırılacak veya değiştirilecek)
+    // For testing purposes (will be removed or modified in the future)
     public void printCreateAccount() {
         System.out.println(createAccountButton.innerText()); }
 
-    // Hesap oluşturma kodu, geçek testte kullanılacak kod
+    // For real test, "creating account" codes are below
     // public void clickCreateAccount() {
     //     createAccountButton.click();  // Gerçek kullanım
     // }
+
+
+
 
     // *************************************************************************
     // LOCATOR ÖRNEKLERİ (Aynı kutuya isim girişi yapılması gerekiyor)
