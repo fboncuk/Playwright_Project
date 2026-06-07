@@ -20,7 +20,7 @@ public class ScreenshotUtil {
         try {
             Files.createDirectories(Paths.get(SCREENSHOT_DIR));
         } catch (Exception e) {
-            log.error("Screenshot dizini oluşturulamadı: {}", e.getMessage());
+            log.error("The screenshot directory could not be created: {}", e.getMessage());
         }
     }
 
@@ -32,11 +32,11 @@ public class ScreenshotUtil {
             Path filePath = Paths.get(SCREENSHOT_DIR, fileName);
 
             page.screenshot(new Page.ScreenshotOptions().setPath(filePath));
-            log.info("📸 Screenshot kaydedildi: {}", filePath);
+            log.info("📸 Screenshot saved: {}", filePath);
 
             return filePath;
         } catch (Exception e) {
-            log.error("Screenshot alınamadı", e);
+            log.error("Screenshot could not be taken!", e);
             return null;
         }
     }

@@ -1,5 +1,6 @@
-package base;
+package listeners;
 
+import base.PlaywrightBaseTest;
 import org.junit.jupiter.api.extension.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,12 +11,12 @@ public class TestListener implements TestWatcher, BeforeEachCallback, AfterEachC
 
     @Override
     public void beforeEach(ExtensionContext context) {
-        log.info("🚀 Test başlıyor: {}", context.getDisplayName());
+        log.info("🚀 The test begins: {}", context.getDisplayName());
     }
 
     @Override
     public void afterEach(ExtensionContext context) {
-        log.info("✅ Test tamamlandı: {}", context.getDisplayName());
+        log.info("✅ Test completed: {}", context.getDisplayName());
     }
 
     @Override
@@ -25,7 +26,11 @@ public class TestListener implements TestWatcher, BeforeEachCallback, AfterEachC
 
         Object testInstance = context.getRequiredTestInstance();
         if (testInstance instanceof PlaywrightBaseTest baseTest) {
-            baseTest.takeScreenshot(context.getDisplayName());
+            try {
+                baseTest.takeScreenshot(context.getDisplayName());
+            } catch (Exception e) {
+                log.error("Screenshot could not be taken!", e);
+            }
         }
     }
 

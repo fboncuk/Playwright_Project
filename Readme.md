@@ -1,4 +1,4 @@
-Playwright + Java + TestNG Automation Framework
+Playwright + Java + JUnit 5 Automation Framework
 
 **********
 Overview
@@ -11,22 +11,30 @@ The framework follows Page Object Model (POM) principles and focuses on
 
 **********
 Project Goals
-* Eliminate Thread.sleep usage
+* Playwright auto-waiting mechanism (no Thread.sleep usage)
 * Improve framework maintainability
 * Increase test stability
 * Enable scalable test execution
 * Support CI/CD integration
 
 **********
+Design Principles
+* Page Object Model (POM)
+* Single Responsibility Principle (SRP)
+* Separation of Test Logic and Page Logic
+* Reusable Component Design
+
+**********
 Technology Stack
 * Java 17
 * Playwright
 * JUnit
+* AssertJ
 * Maven
 * SLF4J + Logback
 * Faker
 * Allure Report
-* GitHub Actions (planned)
+* GitHub Actions
 
 **********
 Why these tools?
@@ -46,7 +54,6 @@ src
 │  │  │
 │  │  └─ utils
 │  │     └─ ConfigReader
-│  │
 │  │
 │  └─ resources
 │     ├─ config.properties
@@ -70,15 +77,14 @@ Implemented Features
 * Logging with SLF4J & Logback
 * Screenshot capture on failure
 * Exception handling
-* BasePage and BaseTest architecture
 * Smart waiting strategy
 * Reusable utility classes
+* Allure reporting
 
 **********
 Planned Improvements
 
 Test Engine
-* Faker integration
 * Retry mechanism
 * Parallel execution
 
@@ -99,4 +105,61 @@ Sample Test Scenario
 3. Submit registration form
 4. Verify successful account creation
 
+## Setup
+### Prerequisites
+* Java 17 or higher
+* Maven 3.9+
+* Git
+
+### Clone Repository
+```bash
+git clone https://github.com/fboncuk/Playwright_Project.git
+cd Playwright_Project
+```
+
+### Install Dependencies
+```bash
+mvn clean install
+```
+
+### Browser Support
+Tests run on Chromium browser by default using Playwright.
+
+
+### Test Data Strategy
+* Dynamic test data generation using Faker
+* No hardcoded test data
+
+
+### Run Tests
+Run all tests:
+```bash
+mvn test
+```
+
+Run a specific test class:
+```bash
+mvn test -Dtest=SignUp
+```
+
+### Configuration
+Test configuration values are stored in:
+```text
+src/main/resources/config.properties
+```
+
+Example:
+```properties
+baseUrl=https://www.bestbuy.com
+```
+
+### Logs
+Framework logs are managed through SLF4J and Logback.
+Configuration file:
+```text
+src/main/resources/logback.xml
+```
+
+### Screenshots
+When a test fails, a screenshot is automatically captured by the TestListener and saved for debugging purposes.
 

@@ -32,7 +32,7 @@ public class CreateAccountPage {
         this.password2 = page.locator("input#reenterPassword");
         this.showReenterPasswordToggle = page.locator("button#show-hide-reenter-password-toggle");
         this.phone = page.locator("#phone");
-        this.setPhoneCheckBox = page.locator("#is-recovery-phone");
+        this.setPhoneCheckBox = page.locator("label[for='is-recovery-phone']");
         this.createAccountButton = page.locator("button[type='submit']");
     }
 
@@ -41,9 +41,7 @@ public class CreateAccountPage {
     public void fillLastName(String value) {
         lastName.fill(value);
     }
-    public void fillEmail(String value) {
-        email.fill(value);
-    }
+    public void fillEmail(String value) { email.fill("benemaildegilim"); }
     public void fillPassword1(String value) { password1.fill(value); }
     public void clickshowPasswordToggle() { showPasswordToggle.click(); }
     public void fillPassword2(String value) { password2.fill(value); }

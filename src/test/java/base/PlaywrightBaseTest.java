@@ -1,6 +1,7 @@
 package base;
 
 import com.microsoft.playwright.*;
+import listeners.TestListener;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -41,8 +42,7 @@ public class PlaywrightBaseTest {
     }
 
     @AfterEach
-    void tearDown() {
-        // Her testten sonra screenshot al (veya sadece hata durumunda)
+    void tearDown(TestInfo info) {
         if (context != null) {
             context.close();
         }
@@ -59,7 +59,7 @@ public class PlaywrightBaseTest {
     }
 
     // Screenshot almak için yardımcı metod
-    protected void takeScreenshot(String testName) {
+    public void takeScreenshot(String testName) {
         if (page != null) {
             Path path = ScreenshotUtil.takeScreenshot(page, testName);
             log.info("📸 Screenshot: {}", path);

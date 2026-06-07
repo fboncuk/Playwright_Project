@@ -28,7 +28,7 @@ public class SignUp extends PlaywrightBaseTest {
         String uniqueEmail = faker.internet().emailAddress();
         String password = faker.internet()
                 .password(8,15,true,true,true);
-        String anyPhoneNumber = faker.phoneNumber().cellPhone();
+        String anyPhoneNumber = faker.number().digits(10);
 
         // The process is carried out using the methods on the CreateAccountPage.
         createAccountPage.fillFirstName(anyFirstName);
